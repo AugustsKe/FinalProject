@@ -41,13 +41,15 @@ public class UserController {
     public String userLogin(@RequestParam("userID") String userID, @RequestParam("userName") String userName,
     HttpSession session){
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        System.out.println(userID + " "+userName);
+        System.out.println(userID + " " + userName);
         session.setAttribute("currUserID", userID);
+        session.setAttribute("userName", userName);
         User loginUser = userRepository.findByUserId(userID);       
         if(loginUser==null){
             User newUser = new User();   
             newUser.setUserId(userID);
             newUser.setUserName(userName);
+            newUser.setLastLogin("20181213");
             userRepository.save(newUser);
             return "redirect:/favTeam";
         } 
@@ -55,7 +57,7 @@ public class UserController {
             session.removeAttribute("currUserID");
             return "blocked";
         }  
-		return "redirect:/";
+		return "redirect:/home";
     }
     
     @GetMapping("/userLogout")

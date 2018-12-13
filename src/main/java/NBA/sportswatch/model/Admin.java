@@ -19,7 +19,7 @@ import javax.persistence.Entity;
 public class Admin {
 	
 	// @GeneratedValue(strategy = GenerationType.AUTO)
-	// private String adminId;
+	private String adminId;
 
 	
 //	@Column(name = "adminName")

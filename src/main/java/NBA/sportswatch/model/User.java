@@ -25,6 +25,7 @@ public class User {
 	private String userName;
 //	@Column(name = "favTeam")
 	private ArrayList<Team> favTeam;
+	private String FT;
 
 //	@Column(name = "lastLogin")
 	private String lastLogin;
@@ -53,6 +54,15 @@ public class User {
 	}
 	public void setFavTeam(ArrayList<Team> favTeam) {
 		this.favTeam = favTeam;
+	}
+
+	public String getFT()
+	{
+		return FT;
+	}
+
+	public String setFT(String FT){
+		return this.FT = FT;
 	}
 
 	public String getStatus(){

@@ -96,10 +96,8 @@
       <a class="navbar-brand" href="#">myNBA</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <!-- <li><a href="/todaygame">todaygame</a></li> -->
-      <!-- <li><a href="/favTeam">FavoriteTeam</a></li> -->
-      <li><a href="/favoriteteam">FavoriteTeam</a></li>
+      <li class="active"><a href="/home">Home</a></li>
+      <li><a href="/favTeam">FavoriteTeam</a></li>
       <li><a href="/schedule">TeamSchedule</a></li>
       <li><a href="/standing">TeamStanding</a></li>
       <li><a th:href="@{/signin}">Admin Signin</a></li>
@@ -111,15 +109,9 @@
 
 
   
-<!-- <div class="container">
+<div class="container">
   <h3>Inverted Navbar</h3>
   <p>An inverted navbar is black instead of gray.</p>
-</div> -->
-
-<div>
-<h1>FavoriteTeam:</h1>
-<h3 th:if="session!=null and session.currUserID !=null" th:text="${FT}"></h3>
-<h1> Today's game</h1>
 </div>
 
 <div class="container">
@@ -146,25 +138,6 @@
         </tr>
       </table>
   </div>
-  
-<!-- <h1 th:if="session!=null and session.currUserID !=null" th:text="${currUserID}"></h1> -->
-  <!-- <div class="container">
-    <table class="table">
-            <thead>
-            <tr>
-              <th scope="col">Abb</th>
-              <th scope="col">Name</th>
-              <th scope="col">City</th>
-            </tr>
-          </thead>
-          
-                <tr th:each="teamStandingEntry : ${teamStandingEntries}" >
-                     <td th:text="${teamStandingEntry.team.Abbreviation}" th:id="${teamStandingEntry.team.ID}">
-                     <td > <a th:href="@{~/team?id=} + ${teamStandingEntry.team.ID}" th:text="${teamStandingEntry.team.Name}"> </a> </td>
-                      <td th:text="${teamStandingEntry.team.City}">
-                  </tr>
-            </table>
-</div> -->
 
 </body>
 </html>

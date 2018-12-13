@@ -8,5 +8,6 @@ import NBA.sportswatch.model.User;
 // @Repository("UserRepository")
 @Repository
 public interface UserRepository extends CrudRepository<User, String>{	
-	public User findByUserId(String userId);	
+	public User findByUserId(String userId);
+		
 }

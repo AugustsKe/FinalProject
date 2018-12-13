@@ -95,7 +95,7 @@
                   </div>
                   <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
-                    <li><a href="/favTeam">FavoriteTeam</a></li>
+                    <li><a href="/favoriteteam">FavoriteTeam</a></li>
                     <li><a href="/schedule">TeamSchedule</a></li>
                     <li><a href="/standing">TeamStanding</a></li>
                     <li><a th:href="@{/signin}">Admin Signin</a></li>
@@ -104,7 +104,7 @@
                   </ul>
                 </div>
               </nav>
-    <div>
+    <!-- <div>
         <select class="form-control" multiple="multiple">
             <option selected="selected">orange</option>
             <option>white</option>
@@ -117,8 +117,46 @@
             tags: true,
             tokenSeparators: [',', ' ']
         })
-    </script>
+    </script> -->
 
+      <h2>Select your favorite teams</h2>
+      <form method="post">
+    <select class="form-control" name="selFavoTeam" multiple="multiple">
+      <option value="Alabama">Alabama</option>
+      <option value="Raptors">Raptors</option>;
+      <option value="Bucks">Bucks</option>;
+      <option value="Nuggets">Nuggets</option>;
+      <option value="Warriors">Warriors</option>;
+      <option value="Thunder">Thunder</option>;
+      <option value="Pacers">Pacers</option>;
+      <option value="Celtics">Celtics</option>;
+      <option value="Clippers">Clippers</option>;
+      <option value="Lakers">Lakers</option>;
+      <option value="76ers">76ers</option>;
+      <option value="Grizzlies">Grizzlies</option>;
+      <option value="Mavericks">Mavericks</option>;
+      <option value="Kings">Kings</option>;
+      <option value="Trail">Trail</option>;
+      <option value="Pelicans">Pelicans</option>;
+      <option value="Hornets">Hornets</option>;
+      <option value="Pistons">Pistons</option>;
+      <option value="Spurs">Spurs</option>;
+      <option value="Jazz">Jass</option>;
+      <option value="Timberwolves">Timberwolves</option>;
+      <option value="Rockets">Rockets</option>;
+      <option value="Magic">Magic</option>;
+      <option value="Heat">Heat</option>;
+      <option value="Wizards">Wizards</option>;
+      <option value="Nets">Nets</option>;
+      <option value="Knicks">Knicks</option>;
+      <option value="Cavaliers">Cavaliers</option>;
+      <option value="Hawks">Hawks</option>;
+      <option value="Bulls">Bulls</option>;
+      <option value="Suns">Suns</option>;
+      <option value="WY">Wyoming</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

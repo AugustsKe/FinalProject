@@ -2,6 +2,8 @@ package NBA.sportswatch;
 
 import java.util.Base64;
 
+import javax.servlet.http.HttpSession;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +26,7 @@ import NBA.sportswatch.repository.UserRepository;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import NBA.sportswatch.model.*;
 
 @Controller
 public class MainController{
@@ -30,34 +34,66 @@ public class MainController{
     // @Autowired
     // private AdminRepository adminRepository;
 
-    // @Autowired
-    // private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 
 
-    @GetMapping("/favTeam")
-    public String selFavTeams(){
-        return "favoriteteam";
-    }
+    // @GetMapping("/home")
+    // public ModelAndView selFavTeams(HttpSession session){
+	// 	String userID = (String) session.getAttribute("currentUserID");
+	// 	User aUser = userRepository.findByUserId(userID);
+	// 	ModelAndView teams = new ModelAndView("favoriteteam");
+	// 	teams.addObject("FT", aUser.getFT());
+    //     return teams;
+    // }
 
     // @GetMapping("/standing")
     // public String goStanding(){
     //     return "standing";
-    // } 
+	// } 
 
-    	//Using PoJo Classes
-	@GetMapping("/")
-	public ModelAndView getTodayGame() {
-		ModelAndView showTodayGames = new ModelAndView("/");
+	@GetMapping("favoriteteam")
+	public String getFavoTeam()
+	{
+		return "favoriteteam";
+	}
+	
+	@PostMapping("/favoriteteam")
+	public String getFavoTeam(@RequestParam("selFavoTeam") String[]  selFavoteam, HttpSession session)
+	{
+		String userID = (String) session.getAttribute("currUserID");
+		User aUser = userRepository.findByUserId(userID);
+		// aUser.setFT(selFavoteam);
+		System.out.println("Add favorite Team mainCtr");
+		System.out.println(selFavoteam[0]);
+		String newString = "";
+		for(String str : selFavoteam){
+			newString += str +",";
+		}
+		aUser.setFT(newString);
+		userRepository.save(aUser);
+		return "redirect:/home";
+	}
+
+	@GetMapping("/home")
+    	public ModelAndView getTodayGame(HttpSession session) {
+		ModelAndView showTodayGames = new ModelAndView("home");
+		String userID = (String) session.getAttribute("currUserID");
+		User aUser = userRepository.findByUserId(userID);
+		// ModelAndView teams = new ModelAndView("favoriteteam");
+		// teams.addObject("FT", aUser.getFT());
+        
+
 		// showTeams.addObject("name", "Human"); 
 		ArrayList<HashMap<String, String>> todayGameDetails = new ArrayList<HashMap<String, String>>();
 		
 		//Endpoint to call
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-		Date date = new Date();
-		String dataStr = formatter.format(date);
+		// Date date = new Date();
+		// String dataStr = formatter.format(date);
 		// String url ="https://api.mysportsfeeds.com/v1.2/pull/nba/2018-2019-regular/daily_game_schedule.json?fordate="+formatter.format(date);
-		String url = "https://api.mysportsfeeds.com/v1.2/pull/nba/2018-2019-regular/scoreboard.json?fordate==20181211"; //+ dataStr;
+		String url = "https://api.mysportsfeeds.com/v1.2/pull/nba/2018-2019-regular/scoreboard.json?fordate=20181212"; //+ dataStr;
 		//Encode Username and Password
         String encoding = Base64.getEncoder().encodeToString("0ef69b87-a5cd-447e-8237-855a5f:QfFx6Rjta8KFHyq".getBytes());
         // TOKEN:PASS
@@ -72,6 +108,7 @@ public class MainController{
 		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
 		String str = response.getBody(); 
 		ObjectMapper mapper = new ObjectMapper();
+		System.out.println("Running today game");
 		try {
 			JsonNode root = mapper.readTree(str);
 			System.out.println(str);
@@ -101,10 +138,14 @@ public class MainController{
 		}
 	 
 		showTodayGames.addObject("todayGameDetails", todayGameDetails);
+		System.out.println(aUser.getFT());
+		System.out.println("Add favorite team");
+		showTodayGames.addObject("FT", aUser.getFT());
 		        
 		return showTodayGames;
 	}
-	
+
+   
 
 	@GetMapping("/standing")
 	public ModelAndView getTeams() {
@@ -133,6 +174,7 @@ public class MainController{
 		return showTeams;
 	}
 	
+
     
     //Using objectMapper
 	@GetMapping("/team")
